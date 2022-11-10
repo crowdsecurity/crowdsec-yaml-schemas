@@ -29,33 +29,36 @@ properties:
     type: string
   grok:
     type: object
-    properties:
-      - oneOf:
-          - name:
-              type: string
-          - pattern:
-              type: string
-      - oneOf:
-          - apply_on:
-              type: string
-          - expression:
-              type: string
+    properties:      
+      name:
+        type: string
+      pattern:
+        type: string
+      apply_on:
+        type: string
+      expression:
+          type: string
+    oneOf:
+      - required:
+          - name
+      - required:
+          - pattern
   statics:
     type: array
-    items:
-      - oneOf:
+    prefixItems:
+      - enum:
           - meta:
-              type: string
+            type: string
           - parsed:
-              type: string
+            type: string
           - enriched:
-              type: string
+            type: string
           - target:
-              type: string
-      - oneOf:
+            type: string
+      - enum:
           - value:
               type: string
-          - value:
+          - expression:
               type: string
   data:
     type: object
@@ -71,6 +74,6 @@ properties:
       - type
       - dest_file
   nodes:
-    type: object
+    type: array
     items:
       "$ref": "#"
