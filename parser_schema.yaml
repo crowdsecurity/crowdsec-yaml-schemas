@@ -25,10 +25,52 @@ properties:
       "^[A-Z][A-Z_]*$":
         type: string
     additionalProperties: false
+  name:
+    type: string
   grok:
     type: object
     properties:
-      pattern:
+      - oneOf:
+          - name:
+              type: string
+          - pattern:
+              type: string
+      - oneOf:
+          - apply_on:
+              type: string
+          - expression:
+              type: string
+  statics:
+    type: array
+    items:
+      - oneOf:
+          - meta:
+              type: string
+          - parsed:
+              type: string
+          - enriched:
+              type: string
+          - target:
+              type: string
+      - oneOf:
+          - value:
+              type: string
+          - value:
+              type: string
+  data:
+    type: object
+    properties:
+      source_url:
         type: string
-      apply_on:
+      dest_file:
         type: string
+      type:
+        pattern: "^(type|regex)$"
+        type: string
+    required:
+      - type
+      - dest_file
+  nodes:
+    type: object
+    items:
+      "$ref": "#"
