@@ -7,23 +7,3 @@ properties:
     type: string
     description: "If node is successful and onsuccess equals next_stage, event is moved to the next stage"
     pattern: "^next_stage$"
-  debug:
-    type: boolean
-    description: "If true, enables the debug. Default is false."
-  filter:
-    type: string
-    description: |
-      filter must be a valid expr expression that will be evaluated against the event.
-      If filter evaluation returns true or is absent, node will be processed.
-      If filter returns false or a non-boolean, node won't be processed.
-  description:
-    type: string
-    description: "description of the parser usage"
-  pattern_syntax:
-    type: object
-    patternProperties:
-      "^[A-Z][A-Z_]*$":
-        type: string
-    additionalProperties: false
-  name:
-    type: string
