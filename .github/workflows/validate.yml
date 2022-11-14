@@ -1,0 +1,19 @@
+name: Validate
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  yaml-schema-validation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: nrkno/yaml-schema-validator-github-action@v4
+      with:
+        schema: http://json-schema.org/draft-04/schema
+        target: parser_schema.yaml
+        # Uncomment to disable strict checks
+        # no-strict: true
