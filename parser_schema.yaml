@@ -85,6 +85,7 @@ properties:
               type: string
           - expression:
               type: string
+    items: false
   data:
     type: object
     description: |
