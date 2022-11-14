@@ -1,8 +1,9 @@
-$schema: "http://json-schema.org/draft-04/schema"
+$schema: "https://json-schema.org/draft/2020-12/schema"
 id: "http://stsci.edu/schemas/yaml-schema/draft-01"
 title: "CrowdSec Parser"
 type: "object"
-properties: 
+properties:
+  additionalProperties: false
   onsuccess:
     type: string
     description: "If node is successful and onsuccess equals next_stage, event is moved to the next stage"
