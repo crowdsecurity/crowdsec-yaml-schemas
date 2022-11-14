@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: "validate against schema"
-      run:
+      run: |
         npm install -g pajv
         wget http://json-schema.org/draft-04/schema
         pajv test -s parser_schema.yaml -m --valid
