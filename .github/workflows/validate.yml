@@ -11,9 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: nrkno/yaml-schema-validator-github-action@v4
+    - name: Validate YAML Schema
+      uses: PaulRitter/yaml-schema-validator@v2
       with:
+        path_pattern:  parser_schema.yaml
         schema: http://json-schema.org/draft-04/schema
-        target: parser_schema.yaml
-        # Uncomment to disable strict checks
-        # no-strict: true
