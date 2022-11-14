@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Validate YAML Schema
-      uses: PaulRitter/yaml-schema-validator@3d153666aa5d5cd6af5fd030c364aec8d8bfd7f4
-      with:
-        path_pattern:  parser_schema.yaml
-        schema: http://json-schema.org/draft-04/schema
+    - name: "validate against schema"
+      run:
+        npm install -g pajv
+        wget http://json-schema.org/draft-04/schema
+        pajv test -s parser_schema.yaml -d schema --valid
