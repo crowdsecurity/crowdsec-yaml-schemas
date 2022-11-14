@@ -15,4 +15,4 @@ jobs:
       run: |
         npm install -g pajv
         wget http://json-schema.org/draft-04/schema
-        pajv test -s parser_schema.yaml -m --valid
+        pajv test -s parser_schema.yaml -d schema -m --valid
