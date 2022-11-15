@@ -48,8 +48,6 @@ properties:
         type: string
       expression:
         type: string
-      statics:
-        $ref: "#/$defs/statics"
     allOf:
       - oneOf:
           - required:
@@ -66,7 +64,9 @@ properties:
       a named grok used through the name "field". This applies either
       on an valid expr "expression" or on directly on a field
       "apply_on"
-    additionalProperties: false
+    additionalProperties:
+      statics:
+        $ref: "#/$defs/statics"       
   statics:
     $ref: "#/$defs/statics"
   data:
