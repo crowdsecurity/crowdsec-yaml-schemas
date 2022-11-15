@@ -64,7 +64,40 @@ properties:
       a named grok used through the name "field". This applies either
       on an valid expr "expression" or on directly on a field
       "apply_on"
+    statics:
+      $ref: "#/$defs/statics"
     additionalProperties: false
+  statics:
+    $ref: "#/$defs/statics"
+  data:
+    type: object
+    description: |
+      data allows user to specify an external source of data. This
+      section is only relevant when cscli is used to install parser
+      from hub, as it will download the source_url and store it to
+      dest_file. When the parser is not installed from the hub,
+      CrowdSec won't download the URL, but the file must exist for the
+      parser to be loaded correctly.
+    properties:
+      source_url:
+        type: string
+      dest_file:
+        type: string
+      type:
+        pattern: "^(type|regex)$"
+        type: string
+    required:
+      - type
+      - dest_file
+  nodes:
+    type: array
+    description: |
+      nodes is a list of parser nodes, allowing you to build
+      trees. Each subnode must be valid, and if any of the subnodes
+      succeed, the whole node is considered successful.
+    items:
+      "$ref": "#"
+$defs:
   statics:
     type: array
     description: |
@@ -104,31 +137,3 @@ properties:
               - value
           - required:
               - value
-  data:
-    type: object
-    description: |
-      data allows user to specify an external source of data. This
-      section is only relevant when cscli is used to install parser
-      from hub, as it will download the source_url and store it to
-      dest_file. When the parser is not installed from the hub,
-      CrowdSec won't download the URL, but the file must exist for the
-      parser to be loaded correctly.
-    properties:
-      source_url:
-        type: string
-      dest_file:
-        type: string
-      type:
-        pattern: "^(type|regex)$"
-        type: string
-    required:
-      - type
-      - dest_file
-  nodes:
-    type: array
-    description: |
-      nodes is a list of parser nodes, allowing you to build
-      trees. Each subnode must be valid, and if any of the subnodes
-      succeed, the whole node is considered successful.
-    items:
-      "$ref": "#"
