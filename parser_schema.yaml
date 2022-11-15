@@ -64,11 +64,11 @@ properties:
       on an valid expr "expression" or on directly on a field
       "apply_on"
     additionalProperties:
-      statics:
-        $ref: "#/$defs/statics"
-  additionalProperties:
-    statics:
       $ref: "#/$defs/statics"
+  additionalProperties:
+    $ref: "#/$defs/statics"
+  required:
+    - name
   data:
     type: object
     description: |
