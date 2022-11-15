@@ -64,6 +64,7 @@ properties:
       a named grok used through the name "field". This applies either
       on an valid expr "expression" or on directly on a field
       "apply_on"
+    additionalProperties: false
   statics:
     type: array
     description: |
