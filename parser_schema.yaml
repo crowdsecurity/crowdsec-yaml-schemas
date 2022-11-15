@@ -74,6 +74,7 @@ properties:
     prefixItems:
       type:
         object
+      additionalProperties: false
       properties:
       - meta:
         type: string
@@ -102,7 +103,6 @@ properties:
               - value
           - required:
               - value
-    items: false
   data:
     type: object
     description: |
