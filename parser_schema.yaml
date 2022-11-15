@@ -3,7 +3,6 @@ id: "http://stsci.edu/schemas/yaml-schema/draft-01"
 title: "CrowdSec Parser"
 type: object
 properties:
-  additionalProperties: false
   onsuccess:
     type: string
     description: "If node is successful and onsuccess equals next_stage, event is moved to the next stage"
@@ -66,9 +65,10 @@ properties:
       "apply_on"
     additionalProperties:
       statics:
-        $ref: "#/$defs/statics"       
-  statics:
-    $ref: "#/$defs/statics"
+        $ref: "#/$defs/statics"
+  additionalProperties:
+    statics:
+      $ref: "#/$defs/statics"
   data:
     type: object
     description: |
