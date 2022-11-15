@@ -67,8 +67,6 @@ properties:
       $ref: "#/$defs/statics"
   additionalProperties:
     $ref: "#/$defs/statics"
-  required:
-    - name
   data:
     type: object
     description: |
@@ -98,6 +96,8 @@ properties:
       succeed, the whole node is considered successful.
     items:
       "$ref": "#"
+required:
+  - name
 $defs:
   statics:
     type: array
