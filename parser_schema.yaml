@@ -72,6 +72,9 @@ properties:
       composed of a target (where to write) and a source (what data to
       write).
     prefixItems:
+      type:
+        object
+      properties:
       - meta:
         type: string
       - parsed:
@@ -84,8 +87,8 @@ properties:
         type: string
       - expression:
         type: string
-    allOf:
-      - oneOf:
+      allOf:
+        - oneOf:
           - required:
               - meta
           - required:
@@ -94,7 +97,7 @@ properties:
               - enriched
           - required:
               - target
-      - oneOf:
+        - oneOf:
           - required:
               - value
           - required:
