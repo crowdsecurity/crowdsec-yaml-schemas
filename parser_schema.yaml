@@ -111,17 +111,17 @@ $defs:
         object
       additionalProperties: false
       properties:
-      - meta:
+      meta:
         type: string
-      - parsed:
+      parsed:
         type: string
-      - enriched:
+      enriched:
         type: string
-      - target:
+      target:
         type: string
-      - value:
+      value:
         type: string
-      - expression:
+      expression:
         type: string
       allOf:
         - oneOf:
