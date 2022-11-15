@@ -65,25 +65,25 @@ properties:
       on an valid expr "expression" or on directly on a field
       "apply_on"
   statics:
-    type: object
+    type: array
     description: |
       Statics is a list of directives that will be evaluated when the
       node is considered successful. Each entry of the list is
       composed of a target (where to write) and a source (what data to
       write).
-    properties:
+    prefixItems:
       - meta:
-          type: string
+        type: string
       - parsed:
-          type: string
+        type: string
       - enriched:
-          type: string
+        type: string
       - target:
-          type: string
+        type: string
       - value:
-          type: string
+        type: string
       - expression:
-          type: string
+        type: string
     allOf:
       - oneOf:
           - required:
@@ -99,6 +99,7 @@ properties:
               - value
           - required:
               - value
+    items: false
   data:
     type: object
     description: |
