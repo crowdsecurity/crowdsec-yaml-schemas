@@ -137,7 +137,7 @@ $defs:
           - required:
               - value
           - required:
-              - value
+              - expression
   children_nodes:
     type: object
     description: |
