@@ -1,5 +1,5 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-id: "http://stsci.edu/schemas/yaml-schema/draft-01"
+$id: "http://schemas.crowdsec.net/schemas/parser.yaml"
 title: "CrowdSec Parser"
 type: object
 properties:
@@ -38,7 +38,7 @@ properties:
       you track things.
   grok:
     type: object
-    properties:      
+    properties:
       name:
         type: string
       pattern:
@@ -47,13 +47,17 @@ properties:
         type: string
       expression:
         type: string
-      required:
-        - oneOf:
-          - name
-          - pattern
-        - oneOf:
-          - expression
-          - apply_on
+    allOf:
+      - oneOf:
+          - required:
+              - name
+          - required:
+              - pattern
+      - oneOf:
+          - required:
+              - expression
+          - required:
+              - apply_on
     description: |
       A valid grok pattern can be set up using the "pattern" field, or
       a named grok used through the name "field". This applies either
@@ -107,18 +111,18 @@ $defs:
         object
       additionalProperties: false
       properties:
-      meta:
-        type: string
-      parsed:
-        type: string
-      enriched:
-        type: string
-      target:
-        type: string
-      value:
-        type: string
-      expression:
-        type: string
+        meta:
+          type: string
+        parsed:
+          type: string
+        enriched:
+          type: string
+        target:
+          type: string
+        value:
+          type: string
+        expression:
+          type: string
       allOf:
         - oneOf:
           - required:
