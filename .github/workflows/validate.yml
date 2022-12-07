@@ -23,6 +23,5 @@ jobs:
     - name: "validate against schema"
       run: |
         go install github.com/santhosh-tekuri/jsonschema/v5/cmd/jv@latest
-        find / -name jv
-        $GOPATH/bin/jv parser_schema.json
+        ${GOPATH}/bin/jv parser_schema.json
     
