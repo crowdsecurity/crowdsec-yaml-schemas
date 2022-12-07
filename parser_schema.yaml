@@ -199,10 +199,12 @@ $defs:
           a named grok used through the name "field". This applies either
           on an valid expr "expression" or on directly on a field
           "apply_on"
-        additionalProperties:
-            $ref: "#/$defs/statics"
-      additionalProperties:
+        statics:
+          $ref: "#/$defs/statics"
+        additionalProperties: false
+      statics:
         $ref: "#/$defs/statics"
+      additionalProperties: false
       data:
         type: object
         description: |
