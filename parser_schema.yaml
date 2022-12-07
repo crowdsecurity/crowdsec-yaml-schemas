@@ -47,11 +47,11 @@ properties:
         type: string
       expression:
         type: string
-    allOf:
-      - oneOf:
+      required:
+        - oneOf:
           - name
           - pattern
-      - oneOf:
+        - oneOf:
           - expression
           - apply_on
     description: |
