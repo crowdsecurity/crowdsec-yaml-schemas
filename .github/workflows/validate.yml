@@ -6,8 +6,13 @@ on:
     branches:
       - main
 
-jobs:
+jobs: 
   yaml-schema-validation:
+    strategy:
+      matrix:
+        files:
+          - parser_schema
+          - scenario_schema
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -19,9 +24,9 @@ jobs:
     - name: transform to json
       uses: mikefarah/yq@master
       with:
-        cmd: yq  -o=json parser_schema.yaml > parser_schema.json
+        cmd: yq  -o=json ${{ matrix.files }}.yaml > ${{ matrix.files }}.json
     - name: "validate against schema"
       run: |
         go install github.com/santhosh-tekuri/jsonschema/v5/cmd/jv@latest
-        ~/go/bin/jv parser_schema.json
+        ~/go/bin/jv ${{ matrix.files }}.json
     
