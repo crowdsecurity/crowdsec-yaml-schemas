@@ -152,8 +152,8 @@ $defs:
         properties:
           type:
             type: string
-            expression:
-              type: string
+          expression:
+            type: string
         additionalProperties: false
     additionalProperties: false  
     required:
@@ -307,8 +307,8 @@ $defs:
         properties:
           type:
             type: string
-            expression:
-              type: string
+          expression:
+            type: string
         additionalProperties: false
     additionalProperties: false  
     required:
