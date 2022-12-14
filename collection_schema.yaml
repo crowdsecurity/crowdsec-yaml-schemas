@@ -1,0 +1,49 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "http://schemas.crowdsec.net/schemas/collection.yaml"
+title: "CrowdSec Collection"
+type: object
+additionalProperties: false
+properties:
+  description:
+    type: string
+    description: "description of the parser usage"
+  name:
+    type: string
+    description: |
+      The mandatory name of the node. If not present, node will be
+      skipped at runtime. It is used for example in debug log to help
+      you track things.
+  parsers:
+    type: array
+    items:
+      type: string
+      description: |
+        List of parsers to include in the collection.
+  scenarios:
+    type: array
+    items:
+      type: string
+      description: |
+        List of scnearios to include in the collection.
+  postoverflows:
+    type: array
+    items:
+      type: string
+      description: |
+        List of postoverflows to include in the collection.
+  collections:
+    type: array
+    items:
+      type: string
+      description: |
+        List of collections to include in the collection.
+  author:
+    type: string
+    description: |
+      The name of the author.
+  tags:
+    type: array
+    items:
+      type: string
+    description: |
+      List of tags.
