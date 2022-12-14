@@ -226,11 +226,11 @@ $defs:
           nor they are sent to the API.  Special labels : The remediation
           label, if set to true indicate the the originating IP should be
           banned.
-        type: array
-        items:
-          type: object
-          additionalProperties:
+        type: object
+        patternProperties:
+          "^.*$":
             type: string
+        additionalProperties: false
       blackhole:
         type: string
         description: |
@@ -374,11 +374,11 @@ $defs:
           nor they are sent to the API.  Special labels : The remediation
           label, if set to true indicate the the originating IP should be
           banned.
-        type: array
-        items:
-          type: object
-          additionalProperties:
+        type: object
+        patternProperties:
+          "^.*$":
             type: string
+        additionalProperties: false
       blackhole:
         type: string
         description: |
