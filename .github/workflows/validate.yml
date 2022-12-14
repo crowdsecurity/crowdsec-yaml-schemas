@@ -13,6 +13,7 @@ jobs:
         files:
           - parser_schema
           - scenario_schema
+          - collection_schema
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
