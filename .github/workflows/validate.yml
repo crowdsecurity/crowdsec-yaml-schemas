@@ -21,7 +21,6 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
-        id: go
     - name: transform to json
       uses: mikefarah/yq@master
       with:
