@@ -62,7 +62,7 @@ $defs:
           scenarios for compatibility management. Running cscli version
           will show you such compatibility matrix :
         type: string
-        pattern: |-
+        pattern: >-
           ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
       labels:
         description: |
@@ -84,7 +84,7 @@ $defs:
           that might be very rapidly triggered.  The blackhole only
           applies to the individual bucket rather than the whole
           scenario. Must be compatible with golang ParseDuration format.
-        pattern: |-
+        pattern: >-
           ^([0-9]+(\.[0-9]+)*d)?([0-9]+(\.[0-9]+)*h)?([0-9]+(\.[0-9]+)*m)?([0-9]+(\.[0-9]+)*s)?([0-9]+(\.[0-9]+)*ms)?([0-9]+(\.[0-9]+)*(us|µs))?([0-9]+(\.[0-9]+)*ns)?$
       debug:
         type: boolean
@@ -181,7 +181,7 @@ $defs:
         description: |
           Only applies to leaky buckets.
           A duration that represent how often an event will be leaking from the bucket.
-        pattern: |-
+        pattern: >-
           ^([0-9]+(\.[0-9]+)*d)?([0-9]+(\.[0-9]+)*h)?([0-9]+(\.[0-9]+)*m)?([0-9]+(\.[0-9]+)*s)?([0-9]+(\.[0-9]+)*ms)?([0-9]+(\.[0-9]+)*(us|µs))?([0-9]+(\.[0-9]+)*ns)?$
       name:
         type: string
@@ -239,7 +239,7 @@ $defs:
           that might be very rapidly triggered.  The blackhole only
           applies to the individual bucket rather than the whole
           scenario. Must be compatible with golang ParseDuration format.
-        pattern: |-
+        pattern: >-
           ^([0-9]+(\.[0-9]+)*d)?([0-9]+(\.[0-9]+)*h)?([0-9]+(\.[0-9]+)*m)?([0-9]+(\.[0-9]+)*s)?([0-9]+(\.[0-9]+)*ms)?([0-9]+(\.[0-9]+)*(us|µs))?([0-9]+(\.[0-9]+)*ns)?$
       debug:
         type: boolean
@@ -365,7 +365,7 @@ $defs:
           scenarios for compatibility management. Running cscli version
           will show you such compatibility matrix :
         type: string
-        pattern: |-
+        pattern: >-
           ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
       labels:
         description: |
