@@ -25,7 +25,7 @@ there, but I want the schemas thoroughly tested before proceeding.
 For now, we can indicate to the lsp server how to apply the schema by
 adding a line on top on the parsed yaml file.
 
-`# yaml-language-server: $schema=https://raw.githubusercontent.com/sabban/yaml-schemas/main/parser_schema.yaml`
+`# yaml-language-server: $schema=https://raw.githubusercontent.com/crowdsecurity/yaml-schemas/main/parser_schema.yaml`
 
 As it is undserstood by the lsp server, it will be working in most
 common editors.
