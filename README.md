@@ -1,4 +1,4 @@
-# yaml-schema
+# crowdsec-yaml-schema
 
 ## Yaml schema
 
