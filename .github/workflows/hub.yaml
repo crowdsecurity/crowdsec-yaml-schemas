@@ -1,0 +1,44 @@
+name: check hub
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches:
+      - main
+
+jobs: 
+  yaml-schema-validation:
+    strategy:
+      matrix:
+        files:
+          - 'scenarios/**.yaml'
+          - 'parsers/**.yaml'
+          - 'postoverflows/**.yaml'
+          - 'collections/**.yaml'
+          - 'scenarios/**.yml'
+          - 'parsers/**.yml'
+          - 'postoverflows/**.yml'
+          - 'collections/**.yml'
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v3
+    - name: checkout hub
+      uses: actions/checkout@v3
+      with:
+        repository: 'crowdsecurity/hub'
+        path: hub
+    - name: transform to json all parsers/scenarios/collections/postovfw
+      uses: mikefarah/yq@master
+      with:
+        cmd: find . -path ./.tests -prune -o -name "*"yaml -exec "yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json" \;
+    - name: transform to json schema
+      uses: mikefarah/yq@master
+      with:
+        cmd: for i in *.yaml ; do yq  -o=json {} > $(basename $i .yaml).json"
+    - name: "validate against schema"
+      run: |
+        go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
+        find .
+        find ./parsers -name "*"json -exec ~/go/bin/jv parser_schema.json {} \;
+    
