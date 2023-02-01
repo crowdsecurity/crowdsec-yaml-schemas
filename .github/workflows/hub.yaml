@@ -8,17 +8,6 @@ on:
 
 jobs: 
   yaml-schema-validation:
-    strategy:
-      matrix:
-        files:
-          - 'scenarios/**.yaml'
-          - 'parsers/**.yaml'
-          - 'postoverflows/**.yaml'
-          - 'collections/**.yaml'
-          - 'scenarios/**.yml'
-          - 'parsers/**.yml'
-          - 'postoverflows/**.yml'
-          - 'collections/**.yml'
     runs-on: ubuntu-latest
     steps:
     - name: checkout repo
