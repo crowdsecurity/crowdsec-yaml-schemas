@@ -20,7 +20,7 @@ jobs:
     - name: transform to json all parsers/scenarios/collections/postovfw
       uses: mikefarah/yq@master
       with:
-        cmd: find . -path ./.tests -prune -o -name "*"yaml -exec "yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json" \;
+        cmd: find . -path ./.tests -prune -o -name "*"yaml -exec sh -c 'yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json' \;
     - name: transform to json schema
       uses: mikefarah/yq@master
       with:
