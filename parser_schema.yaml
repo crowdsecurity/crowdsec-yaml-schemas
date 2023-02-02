@@ -63,7 +63,8 @@ properties:
                   - expression
               - required:
                   - apply_on
-      - {}
+      - type:
+          - "null"
     description: |
       A valid grok pattern can be set up using the "pattern" field, or
       a named grok used through the name "field". This applies either
@@ -209,7 +210,8 @@ $defs:
                       - expression
                   - required:
                       - apply_on
-          - {}
+          - type:
+              - "null"
       statics:
         $ref: "#/$defs/statics"
       data:
