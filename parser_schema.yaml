@@ -38,46 +38,7 @@ properties:
       skipped at runtime. It is used for example in debug log to help
       you track things.
   grok:
-    type: object
-    additionalProperties: false
-    properties:
-      name:
-        type: string
-      pattern:
-        type: string
-      apply_on:
-        type: string
-      expression:
-        type: string
-      statics:
-        $ref: "#/$defs/statics"
-    oneOf:
-      - allOf:
-          - oneOf:
-              - required:
-                  - name
-              - required:
-                  - pattern
-          - oneOf:
-              - required:
-                  - expression
-              - required:
-                  - apply_on
-      - not:
-          anyOf:
-            - required:
-                - name
-            - required:
-                - pattern
-            - required:
-                - expression
-            - required:
-                - apply_on
-    description: |
-      A valid grok pattern can be set up using the "pattern" field, or
-      a named grok used through the name "field". This applies either
-      on an valid expr "expression" or on directly on a field
-      "apply_on"
+    $ref: "#/$defs/grok"
   statics:
     $ref: "#/$defs/statics"
   data:
@@ -113,6 +74,38 @@ required:
   - name
 
 $defs:
+  grok:
+    anyOf:
+      - type: object
+        additionalProperties: false
+        properties:
+          name:
+            type: string
+          pattern:
+            type: string
+          apply_on:
+            type: string
+          expression:
+            type: string
+          statics:
+            $ref: "#/$defs/statics"
+        description: |
+          A valid grok pattern can be set up using the "pattern" field, or
+          a named grok used through the name "field". This applies either
+          on an valid expr "expression" or on directly on a field
+          "apply_on"
+        allOf:
+          - oneOf:
+              - required:
+                  - name
+              - required:
+                  - pattern
+          - oneOf:
+              - required:
+                  - expression
+              - required:
+                  - apply_on
+      - type: "null"
   statics:
     type: array
     description: |
@@ -188,46 +181,7 @@ $defs:
           expressions for future use in grok patterns. Regexp must be a
           valid RE2 expression.
       grok:
-        type: object
-        additionalProperties: false
-        properties:
-          name:
-            type: string
-          pattern:
-            type: string
-          apply_on:
-            type: string
-          expression:
-            type: string
-          statics:
-            $ref: "#/$defs/statics"
-        description: |
-          A valid grok pattern can be set up using the "pattern" field, or
-          a named grok used through the name "field". This applies either
-          on an valid expr "expression" or on directly on a field
-          "apply_on"
-        oneOf:
-          - allOf:
-              - oneOf:
-                  - required:
-                      - name
-                  - required:
-                      - pattern
-              - oneOf:
-                  - required:
-                      - expression
-                  - required:
-                      - apply_on
-          - not:
-              anyOf:
-                - required:
-                    - name
-                - required:
-                    - pattern
-                - required:
-                    - expression
-                - required:
-                    - apply_on
+        $ref: "#/$defs/grok"
       statics:
         $ref: "#/$defs/statics"
       data:
