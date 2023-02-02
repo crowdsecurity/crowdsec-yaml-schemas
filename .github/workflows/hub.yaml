@@ -31,5 +31,5 @@ jobs:
         find ./hub/parsers -name "*"json -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \;
         find ./hub/scenarios -name "*"json -exec sh -c 'echo {} && ~/go/bin/jv scenario_schema.json {}' \;
         find ./hub/collections -name "*"json -exec sh -c 'echo {} && ~/go/bin/jv collection_schema.json {}' \;
-        find ./hub/postoverlows -name "*"json -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \;
+        find ./hub/postoverflows -name "*"json -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \;
     
