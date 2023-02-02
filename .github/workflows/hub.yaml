@@ -29,5 +29,8 @@ jobs:
       run: |
         go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
         find .
-        find ./parsers -name "*"json -exec ~/go/bin/jv parser_schema.json {} \;
+        find ./hub/parsers -name "*"json -exec ~/go/bin/jv parser_schema.json {} \;
+        find ./hub/scenarios -name "*"json -exec ~/go/bin/jv scenario_schema.json {} \;
+        find ./hub/collections -name "*"json -exec ~/go/bin/jv collection_schema.json {} \;
+        find ./hub/postoverlows -name "*"json -exec ~/go/bin/jv parser_schema.json {} \;
     
