@@ -22,15 +22,7 @@ properties:
     type: string
     description: "description of the parser usage"
   pattern_syntax:
-    type: object
-    patternProperties:
-      "^[A-Z][A-Z0-9_v]*$":
-        type: string
-    additionalProperties: false
-    description: |
-      pattern_syntax allows user to define named capture group
-      expressions for future use in grok patterns. Regexp must be a
-      valid RE2 expression.
+    $ref: "#/$defs/pattern_syntax"
   name:
     type: string
     description: |
@@ -41,6 +33,20 @@ properties:
     $ref: "#/$defs/grok"
   statics:
     $ref: "#/$defs/statics"
+  data:
+    $ref: "#/$defs/data"
+  nodes:
+    type: array
+    description: |
+      nodes is a list of parser nodes, allowing you to build
+      trees. Each subnode must be valid, and if any of the subnodes
+      succeed, the whole node is considered successful.
+    items:
+      $ref: "#/$defs/children_nodes"
+required:
+  - name
+
+$defs:
   data:
     type: object
     description: |
@@ -61,19 +67,17 @@ properties:
     required:
       - type
       - dest_file
+    additionalProperties: false  
+  pattern_syntax:
+    type: object
+    patternProperties:
+      "^[A-Z][A-Z0-9_v]*$":
+        type: string
     additionalProperties: false
-  nodes:
-    type: array
     description: |
-      nodes is a list of parser nodes, allowing you to build
-      trees. Each subnode must be valid, and if any of the subnodes
-      succeed, the whole node is considered successful.
-    items:
-      $ref: "#/$defs/children_nodes"
-required:
-  - name
-
-$defs:
+      pattern_syntax allows user to define named capture group
+      expressions for future use in grok patterns. Regexp must be a
+      valid RE2 expression.  
   grok:
     anyOf:
       - type: object
@@ -171,40 +175,13 @@ $defs:
         type: string
         description: "description of the parser usage"
       pattern_syntax:
-        type: object
-        patternProperties:
-          "^[A-Z][A-Z_]*$":
-            type: string
-        additionalProperties: false
-        description: |
-          pattern_syntax allows user to define named capture group
-          expressions for future use in grok patterns. Regexp must be a
-          valid RE2 expression.
+        $ref: "#/$defs/pattern_syntax"
       grok:
         $ref: "#/$defs/grok"
       statics:
         $ref: "#/$defs/statics"
       data:
-        type: object
-        description: |
-          data allows user to specify an external source of data. This
-          section is only relevant when cscli is used to install parser
-          from hub, as it will download the source_url and store it to
-          dest_file. When the parser is not installed from the hub,
-          CrowdSec won't download the URL, but the file must exist for the
-          parser to be loaded correctly.
-        properties:
-          source_url:
-            type: string
-          dest_file:
-            type: string
-          type:
-            pattern: "^(type|regex)$"
-            type: string
-        required:
-          - type
-          - dest_file
-        additionalProperties: false
+        $ref: "#/$defs/data"
       nodes:
         type: array
         description: |
