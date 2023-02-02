@@ -51,17 +51,19 @@ properties:
         type: string
       statics:
         $ref: "#/$defs/statics"
-    allOf:
-      - oneOf:
-          - required:
-              - name
-          - required:
-              - pattern
-      - oneOf:
-          - required:
-              - expression
-          - required:
-              - apply_on
+    oneOf:
+      - allOf:
+          - oneOf:
+              - required:
+                  - name
+              - required:
+                  - pattern
+          - oneOf:
+              - required:
+                  - expression
+              - required:
+                  - apply_on
+      - {}
     description: |
       A valid grok pattern can be set up using the "pattern" field, or
       a named grok used through the name "field". This applies either
@@ -190,22 +192,24 @@ $defs:
             type: string
           statics:
             $ref: "#/$defs/statics"
-        allOf:
-          - oneOf:
-              - required:
-                  - name
-              - required:
-                  - pattern
-          - oneOf:
-              - required:
-                  - expression
-              - required:
-                  - apply_on
         description: |
           A valid grok pattern can be set up using the "pattern" field, or
           a named grok used through the name "field". This applies either
           on an valid expr "expression" or on directly on a field
           "apply_on"
+        oneOf:
+          - allOf:
+              - oneOf:
+                  - required:
+                      - name
+                  - required:
+                      - pattern
+              - oneOf:
+                  - required:
+                      - expression
+                  - required:
+                      - apply_on
+          - {}
       statics:
         $ref: "#/$defs/statics"
       data:
