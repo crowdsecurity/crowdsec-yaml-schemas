@@ -24,7 +24,7 @@ jobs:
     - name: transform to json schema
       uses: mikefarah/yq@master
       with:
-        cmd: for i in *.yaml ; do yq  -o=json {} > $(basename $i .yaml).json"
+        cmd: for i in *.yaml ; do yq  -o=json {} > $(basename $i .yaml).json ; done
     - name: "validate against schema"
       run: |
         go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
