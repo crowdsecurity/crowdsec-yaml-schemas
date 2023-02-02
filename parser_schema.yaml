@@ -24,7 +24,7 @@ properties:
   pattern_syntax:
     type: object
     patternProperties:
-      "^[A-Z][A-Z0-9_]*$":
+      "^[A-Z][A-Z0-9_v]*$":
         type: string
     additionalProperties: false
     description: |
