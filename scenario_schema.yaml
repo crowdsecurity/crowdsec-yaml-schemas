@@ -123,7 +123,7 @@ $defs:
           bucket. If the cancel_on expression returns true, the bucket is
           immediately destroyed (and doesn't overflow).
       data:
-        $ref: "#/defs/data"
+        $ref: "#/$defs/data"
       scope:
         type: object
         description: |
@@ -251,7 +251,7 @@ $defs:
           bucket. If the cancel_on expression returns true, the bucket is
           immediately destroyed (and doesn't overflow).
       data:
-        $ref: "#/defs/data"
+        $ref: "#/$defs/data"
       scope:
         type: object
         description: |
@@ -372,7 +372,7 @@ $defs:
           bucket. If the cancel_on expression returns true, the bucket is
           immediately destroyed (and doesn't overflow).
       data:
-        $ref: "#/defs/data"
+        $ref: "#/$defs/data"
       scope:
         type: object
         description: |
@@ -393,7 +393,6 @@ $defs:
       - name
       - description
   labels:
-    # anyOf:
     type: object
     description: |
       Labels is a list of label: values that provide context to an
