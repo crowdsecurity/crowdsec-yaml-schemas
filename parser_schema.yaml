@@ -75,6 +75,10 @@ oneOf:
           - grok
       - required:
           - onsuccess
+      - required:
+          - statics
+      - required:
+          - data
 $defs:
   data:
     type: array
