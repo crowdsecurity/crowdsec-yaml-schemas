@@ -35,6 +35,17 @@ properties:
     $ref: "#/$defs/statics"
   data:
     $ref: "#/$defs/data"
+  format:
+    type: object
+    description: |
+      Non mandatory format version for the parser. configuration
+      file. New features, may not be understood by old crowdsec
+      version, filling this correctly ensures that crowdsec supports
+      all the required parser features.
+    patternProperties:
+      "[1-2].0":
+        type: string
+    additionalProperties: false      
   nodes:
     type: array
     description: |
