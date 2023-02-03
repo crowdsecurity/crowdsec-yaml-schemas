@@ -53,7 +53,6 @@ properties:
       all the required parser features.
     additionalProperties: false
     minimum: 1.0
-    maximum: 2.0
   nodes:
     type: array
     description: |
@@ -64,7 +63,18 @@ properties:
       $ref: "#/$defs/children_nodes"
 required:
   - name
-
+oneOf:
+  - required:
+      - whitelist
+  - anyOf:
+      - required:
+          - pattern_syntax
+      - required:
+          - nodes
+      - required:
+          - grok
+      - required:
+          - onsuccess
 $defs:
   data:
     type: array
