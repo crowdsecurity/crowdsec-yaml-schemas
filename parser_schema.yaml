@@ -101,10 +101,8 @@ $defs:
           description: |
             destination to store the downloaded file to
         type:
-          type: object
-          patternProperties:
-            "^(type|regex)$":
-              type: string
+          type: string
+          pattern: "^(string|regexp)$"
           additionalProperties: false
           description: |
             The type is mandatory if you want to evaluate the data in
