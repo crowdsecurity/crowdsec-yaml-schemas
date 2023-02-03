@@ -221,9 +221,8 @@ $defs:
           CrowdSec has a notion of format support for parsers and
           scenarios for compatibility management. Running cscli version
           will show you such compatibility matrix :
-        type: string
-        pattern: >-
-          ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+        type: number
+        minimum: 1.0        
       labels:
         $ref: "#/$defs/labels" 
       blackhole:
@@ -363,9 +362,8 @@ $defs:
           CrowdSec has a notion of format support for parsers and
           scenarios for compatibility management. Running cscli version
           will show you such compatibility matrix :
-        type: string
-        pattern: >-
-          ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+        type: number
+        minimum: 1.0        
       labels:
         $ref: "#/$defs/labels" 
       blackhole:
