@@ -1,5 +1,5 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "http://schemas.crowdsec.net/schemas/parser.yaml"
+$id: "http://schemas.crowdsec.net/schemas/scenario.yaml"
 title: "CrowdSec Scenario"
 oneOf:
   - $ref: "#/$defs/leaky"
@@ -71,17 +71,7 @@ $defs:
         pattern: >-
           ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
       labels:
-        description: |
-          Labels is a list of label: values that provide context to an
-          overflow. The labels are (currently) not stored in the database,
-          nor they are sent to the API.  Special labels : The remediation
-          label, if set to true indicate the the originating IP should be
-          banned.
-        type: object
-        patternProperties:
-          "^.*$":
-            type: string
-        additionalProperties: false
+        $ref: "#/$defs/labels" 
       blackhole:
         type: string
         description: |
@@ -226,17 +216,7 @@ $defs:
         pattern: >-
           ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
       labels:
-        description: |
-          Labels is a list of label: values that provide context to an
-          overflow. The labels are (currently) not stored in the database,
-          nor they are sent to the API.  Special labels : The remediation
-          label, if set to true indicate the the originating IP should be
-          banned.
-        type: object
-        patternProperties:
-          "^.*$":
-            type: string
-        additionalProperties: false
+        $ref: "#/$defs/labels" 
       blackhole:
         type: string
         description: |
@@ -374,17 +354,7 @@ $defs:
         pattern: >-
           ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
       labels:
-        description: |
-          Labels is a list of label: values that provide context to an
-          overflow. The labels are (currently) not stored in the database,
-          nor they are sent to the API.  Special labels : The remediation
-          label, if set to true indicate the the originating IP should be
-          banned.
-        type: object
-        patternProperties:
-          "^.*$":
-            type: string
-        additionalProperties: false
+        $ref: "#/$defs/labels" 
       blackhole:
         type: string
         description: |
@@ -470,4 +440,18 @@ $defs:
     required:
       - type
       - name
-      - description    
+      - description
+  labels:
+    # anyOf:
+    type: object
+    description: |
+      Labels is a list of label: values that provide context to an
+      overflow. The labels are (currently) not stored in the database,
+      nor they are sent to the API.  Special labels : The remediation
+      label, if set to true indicate the the originating IP should be
+      banned.
+    patternProperties:
+      "^.*$":
+        type:
+          - string
+          - boolean
