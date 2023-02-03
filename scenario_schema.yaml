@@ -33,6 +33,12 @@ $defs:
         description: |
           "github_account_name/my_scenario_name" or name:
           "my_author_name/my_scenario_name" name is mandatory
+      capacity:
+        type: integer
+        description: |
+          Only applies to leaky buckets. A positive integer
+          representing the bucket capacity. If there are more than
+          capacity item in the bucket, it will overflow.
       description:
         type: string
         description: |
