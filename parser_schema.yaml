@@ -161,6 +161,8 @@ $defs:
           type: string
         expression:
           type: string
+        method:
+          type: string
       allOf:
         - oneOf:
           - required:
@@ -171,6 +173,8 @@ $defs:
               - enriched
           - required:
               - target
+          - required:
+              - method
         - oneOf:
           - required:
               - value
