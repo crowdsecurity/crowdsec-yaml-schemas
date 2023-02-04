@@ -14,29 +14,37 @@ properties:
       skipped at runtime. It is used for example in debug log to help
       you track things.
   parsers:
-    type: array
-    items:
-      type: string
-      description: |
-        List of parsers to include in the collection.
+    anyOf:
+      - type: array
+        items:
+          type: string
+          description: |
+            List of parsers to include in the collection.
+      - type: "null"
   scenarios:
-    type: array
-    items:
-      type: string
-      description: |
-        List of scnearios to include in the collection.
+    anyOf:
+      - type: array
+        items:
+          type: string
+          description: |
+            List of scnearios to include in the collection.
+      - type: "null"
   postoverflows:
-    type: array
-    items:
-      type: string
-      description: |
-        List of postoverflows to include in the collection.
+    anyOf:
+    - type: array
+      items:
+        type: string
+        description: |
+          List of postoverflows to include in the collection.
+    - type: "null"
   collections:
-    type: array
-    items:
-      type: string
-      description: |
-        List of collections to include in the collection.
+    anyOf:
+      - type: array
+        items:
+          type: string
+          description: |
+            List of collections to include in the collection.
+      - type: "null"
   author:
     type: string
     description: |
