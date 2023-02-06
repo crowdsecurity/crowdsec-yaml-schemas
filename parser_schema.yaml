@@ -77,8 +77,6 @@ oneOf:
           - onsuccess
       - required:
           - statics
-      - required:
-          - data
 $defs:
   data:
     type: array
