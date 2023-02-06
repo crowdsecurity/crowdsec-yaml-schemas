@@ -66,17 +66,20 @@ required:
 oneOf:
   - required:
       - whitelist
-  - anyOf:
-      - required:
-          - pattern_syntax
-      - required:
-          - nodes
-      - required:
-          - grok
-      - required:
-          - onsuccess
-      - required:
-          - statics
+  - allOf:
+      - anyOf:
+          - required:
+              - pattern_syntax
+          - required:
+              - nodes
+          - required:
+              - grok
+          - required:
+              - onsuccess
+          - required:
+              - statics
+      - not:
+          whitelist
 $defs:
   data:
     type: array
