@@ -66,7 +66,7 @@ required:
 oneOf:
   - required:
       - whitelist
-  - oneOf:
+  - allOf:
       - anyOf:
           - required:
               - pattern_syntax
@@ -79,7 +79,9 @@ oneOf:
           - required:
               - statics
       - not:
-          object: whitelist
+          anyOf:
+            - required:
+                - whitelist
 $defs:
   data:
     type: array
