@@ -78,6 +78,8 @@ oneOf:
               - onsuccess
           - required:
               - statics
+      - not:
+          object: whitelist
 $defs:
   data:
     type: array
