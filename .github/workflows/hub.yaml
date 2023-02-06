@@ -28,8 +28,8 @@ jobs:
     - name: "validate against schema"
       run: |
         go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
-        find ./hub/parsers -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \; -o quit \)
-        find ./hub/scenarios -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv scenario_schema.json {}' \; -o quit \)
-        find ./hub/collections -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv collection_schema.json {}' \; -o quit \)
-        find ./hub/postoverflows -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \; -o quit \)
+        find ./hub/parsers -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \; -o -quit \)
+        find ./hub/scenarios -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv scenario_schema.json {}' \; -o -quit \)
+        find ./hub/collections -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv collection_schema.json {}' \; -o -quit \)
+        find ./hub/postoverflows -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \; -o -quit \)
     
