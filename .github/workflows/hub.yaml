@@ -25,11 +25,16 @@ jobs:
       uses: mikefarah/yq@master
       with:
         cmd: for i in *.yaml ; do yq  -o=json $i > $(basename $i .yaml).json ; done
-    - name: "validate against schema"
+    - name: validate parsers against schema
       run: |
         go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
-        find ./hub/parsers -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \; -o -quit \)
-        find ./hub/scenarios -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv scenario_schema.json {}' \; -o -quit \)
-        find ./hub/collections -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv collection_schema.json {}' \; -o -quit \)
-        find ./hub/postoverflows -name "*"json \( -exec sh -c 'echo {} && ~/go/bin/jv parser_schema.json {}' \; -o -quit \)
-    
+        for ITEM in ./hub/parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
+    - name: validate scenarios against schema
+      run: |
+        for ITEM in ./hub/scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv scenario_schema.json $ITEM ; done
+    - name: validate postoverflows against schema
+      run: |
+        for ITEM in ./hub/postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
+    - name: validate parsers against schema
+      run: |
+        for ITEM in ./hub/collections/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
