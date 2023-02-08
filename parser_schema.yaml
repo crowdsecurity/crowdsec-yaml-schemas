@@ -160,7 +160,7 @@ $defs:
                   - expression
               - required:
                   - apply_on
-      - type: "null"
+#      - type: "null"
   statics:
     type: array
     description: |
