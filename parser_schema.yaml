@@ -64,8 +64,6 @@ properties:
 required:
   - name
 oneOf:
-  - required:
-      - whitelist
   - allOf:
       - anyOf:
           - required:
@@ -82,6 +80,8 @@ oneOf:
           anyOf:
             - required:
                 - whitelist
+  - required:
+      - whitelist
 $defs:
   data:
     type: array
