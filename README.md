@@ -25,12 +25,12 @@ there, but I want the schemas thoroughly tested before proceeding.
 For now, we can indicate to the lsp server how to apply the schema by
 adding a line on top on the parsed yaml file.
 
-`# yaml-language-server: $schema=https://raw.githubusercontent.com/crowdsecurity/yaml-schemas/main/parser_schema.yaml`
+`# yaml-language-server: $schema=https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/parser_schema.yaml`
 
 As it is undserstood by the lsp server, it will be working in most
-common editors.
+common editors. Obviously the url has to be updated accordingly to the kind of item schema one wants.
 
 ## What's left to be done
 
 * Testing this as much as possible and report issues in this repository
-* Decide if we add yaml schema for crowdsec configuration file
+* having it added to https://www.schemastore.org/json/
