@@ -89,15 +89,15 @@ oneOf:
     - required:
       - whitelist
     - not:
-      - anyOf:
-          - required:
-              - statics
-          - required:
-              - pattern_syntax
-          - required:
-              - nodes
-          - required:
-              - onsuccess
+      anyOf:
+        - required:
+            - statics
+        - required:
+            - pattern_syntax
+        - required:
+            - nodes
+        - required:
+            - onsuccess
           
 $defs:
   data:
