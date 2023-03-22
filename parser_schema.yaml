@@ -80,7 +80,12 @@ oneOf:
               - required:
                   - grok
               - required:
-                  - onsuccess 
+                  - onsuccess
+          - allOf:
+              - required:
+                  - statics
+              - required:
+                  - onsuccess
       - not:
           anyOf:
             - required:
