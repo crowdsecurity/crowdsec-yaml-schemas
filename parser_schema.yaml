@@ -4,15 +4,6 @@ title: "CrowdSec Parser"
 type: object
 additionalProperties: false
 properties:
-  whitelist:
-    type: object
-    reason:
-    ip:
-    cidr:
-    expression:
-      type: string
-    data:
-      $ref: "#/$defs/data"
   onsuccess:
     type: string
     description: "If node is successful and onsuccess equals next_stage, event is moved to the next stage"
@@ -61,6 +52,15 @@ properties:
       succeed, the whole node is considered successful.
     items:
       $ref: "#/$defs/children_nodes"
+  whitelist:
+    type: object
+    reason:
+    ip:
+    cidr:
+    expression:
+      type: string
+    data:
+      $ref: "#/$defs/data"
 required:
   - name
 oneOf:
