@@ -226,17 +226,12 @@ $defs:
           against the event.  If filter evaluation returns true or is
           absent, node will be processed.  If filter returns false or a
           non-boolean, node won't be processed.
-      description:
-        type: string
-        description: "description of the parser usage"
       pattern_syntax:
         $ref: "#/$defs/pattern_syntax"
       grok:
         $ref: "#/$defs/grok"
       statics:
         $ref: "#/$defs/statics"
-      data:
-        $ref: "#/$defs/data"
       nodes:
         type: array
         description: |
