@@ -1,4 +1,4 @@
-$schema: "https://json-schema.org/draft/2020-12/schema"
+$schema: "https://json-schema.org/draft-04/schema"
 $id: "http://schemas.crowdsec.net/schemas/collection.yaml"
 title: "CrowdSec Collection"
 type: object

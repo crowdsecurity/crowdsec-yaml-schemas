@@ -1,4 +1,4 @@
-$schema: "https://json-schema.org/draft/2020-12/schema"
+$schema: "https://json-schema.org/draft-04/schema"
 $id: "http://schemas.crowdsec.net/schemas/parser.yaml"
 title: "CrowdSec Parser"
 type: object
@@ -63,11 +63,10 @@ properties:
       $ref: "#/$defs/data"
 required:
   - name
-# nodes and grok can be present at the same time
-# onsuccess is mandatory when nodes is present
-# onsuccess is mandatory when grok is present
+# nodes, grok and statics can be present at the same time
 # nodes and whitelists are mutually exclusive
 # grok and whitelists are mutually exclusive
+# statics and whitelists are mutually exclusive
 oneOf:
   - allOf:
       - anyOf:
