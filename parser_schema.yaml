@@ -71,15 +71,12 @@ required:
 oneOf:
   - allOf:
       - anyOf:
-          - allOf:
-              - required:
-                  - nodes
-          - allOf:
-              - required:
-                  - grok
-          - allOf:
-              - required:
-                  - statics
+        - required:
+          - nodes
+        - required:
+          - grok
+        - required:
+          - statics
       - not:
           anyOf:
             - required:
