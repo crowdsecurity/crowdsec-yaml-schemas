@@ -74,18 +74,12 @@ oneOf:
           - allOf:
               - required:
                   - nodes
-              - required:
-                  - onsuccess 
           - allOf:
               - required:
                   - grok
-              - required:
-                  - onsuccess
           - allOf:
               - required:
                   - statics
-              - required:
-                  - onsuccess
       - not:
           anyOf:
             - required:
