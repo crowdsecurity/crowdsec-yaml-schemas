@@ -63,25 +63,42 @@ properties:
       $ref: "#/$defs/data"
 required:
   - name
+# nodes and grok can be present at the same time
+# onsuccess is mandatory when nodes is present
+# onsuccess is mandatory when grok is present
+# nodes and whitelists are mutually exclusive
+# grok and whitelists are mutually exclusive
 oneOf:
   - allOf:
       - anyOf:
+          - allOf:
+              - required:
+                  - nodes
+              - required:
+                  - onsuccess 
+          - allOf:
+              - required:
+                  - grok
+              - required:
+                  - onsuccess 
+      - not:
+          anyOf:
+            - required:
+                - whitelist
+  - allOf:
+    - required:
+      - whitelist
+    - not:
+      - anyOf:
+          - required:
+              - statics
           - required:
               - pattern_syntax
           - required:
               - nodes
           - required:
-              - grok
-          - required:
               - onsuccess
-          - required:
-              - statics
-      - not:
-          anyOf:
-            - required:
-                - whitelist
-  - required:
-      - whitelist
+          
 $defs:
   data:
     type: array
