@@ -31,6 +31,8 @@ properties:
       you track things.
   grok:
     $ref: "#/$defs/grok"
+  stash:
+    $ref: "#/$defs/stash"    
   statics:
     $ref: "#/$defs/statics"
   data:
@@ -95,6 +97,48 @@ oneOf:
               - onsuccess
           
 $defs:
+  stash:
+    type: array
+    description: |
+      The stash section allows a parser to capture data, that can be
+      later accessed/populated via GetFromStash and SetInStash expr
+      helpers. Each list item defines a capture directive that is
+      stored in a separate cache (string:string), with its own maximum
+      size, eviction rules etc.
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          description: |
+            The name of the stash. Distinct parsers can manipulate the same cache
+        key:
+          type: string
+          description: |
+            The expression that defines the string that will be used as a key.
+        value:
+          type: string
+          description: |
+            The expression that defines the string that will be used as a key.
+        ttl:
+          type: string
+          description: |
+            The time to leave of items. Default strategy is LRU.
+          pattern: >-
+            ^([0-9]+(\.[0-9]+)*d)?([0-9]+(\.[0-9]+)*h)?([0-9]+(\.[0-9]+)*m)?([0-9]+(\.[0-9]+)*s)?([0-9]+(\.[0-9]+)*ms)?([0-9]+(\.[0-9]+)*(us|µs))?([0-9]+(\.[0-9]+)*ns)?$  data:
+        size:
+          type: integer
+          description: |
+            The maximum size of the cache.
+        strategy:
+          type: string
+          pattern: "^(LFU|LRU|ARC)$"
+          description: |
+            The caching strategy to be used : LFU, LRU or ARC (see gcache doc for details). Defaults to LRU.
+      required:
+        - name
+        - key
+        - value
   data:
     type: array
     description: |
@@ -242,6 +286,8 @@ $defs:
         $ref: "#/$defs/pattern_syntax"
       grok:
         $ref: "#/$defs/grok"
+      stash:
+        $ref: "#/$defs/stash"    
       statics:
         $ref: "#/$defs/statics"
       nodes:
