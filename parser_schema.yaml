@@ -171,6 +171,21 @@ $defs:
             a list and both will be kept in memory. Without specifying
             a type, the file will be downloaded and stored as file and
             not in memory.
+        strategy:
+          type: string
+          pattern: "^(LRU|LFU|ARC)$"
+          description: |
+            Strategy for cache behavior. See https://pkg.go.dev/github.com/bluele/gcache
+        size:
+          type: integer
+          description: |
+            Maximum size of the cache
+        ttl:
+          type: string
+          description: |
+            Duration after which cache elements expire
+          pattern: >-
+            ^([0-9]+(\.[0-9]+)*d)?([0-9]+(\.[0-9]+)*h)?([0-9]+(\.[0-9]+)*m)?([0-9]+(\.[0-9]+)*s)?([0-9]+(\.[0-9]+)*ms)?([0-9]+(\.[0-9]+)*(us|µs))?([0-9]+(\.[0-9]+)*ns)?$
     required:
       - type
       - dest_file
