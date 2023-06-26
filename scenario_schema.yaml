@@ -166,9 +166,11 @@ $defs:
         pattern: >-
           ^([0-9]+(\.[0-9]+)*d)?([0-9]+(\.[0-9]+)*h)?([0-9]+(\.[0-9]+)*m)?([0-9]+(\.[0-9]+)*s)?([0-9]+(\.[0-9]+)*ms)?([0-9]+(\.[0-9]+)*(us|µs))?([0-9]+(\.[0-9]+)*ns)?$
       references:
-        type: string
         description: |
           Reference to external paper or documentation
+        anyOf:
+          - type: string
+          - type: array
       name:
         type: string
         description: |
@@ -292,9 +294,11 @@ $defs:
           "github_account_name/my_scenario_name" or name:
             "my_author_name/my_scenario_name" name is mandatory
       references:
-        type: string
         description: |
           Reference to external paper or documentation
+        anyOf:
+          - type: string
+          - type: array
       description:
         type: string
         description: |
