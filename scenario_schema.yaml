@@ -406,6 +406,8 @@ $defs:
         type:
           - string
           - boolean
+          - array
+          - integer
   conditional:
     type: object
     properties:
