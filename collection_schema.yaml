@@ -27,7 +27,23 @@ properties:
         items:
           type: string
           description: |
-            List of scnearios to include in the collection.
+            List of scenarios to include in the collection.
+      - type: "null"
+  appsec-configs:
+    anyOf:
+      - type: array
+        items:
+          type: string
+          description: |
+            List of appsec-configs to include in the collection.
+      - type: "null"
+  appsec-rules:
+    anyOf:
+      - type: array
+        items:
+          type: string
+          description: |
+            List of appsec-rules to include in the collection.
       - type: "null"
   postoverflows:
     anyOf:
