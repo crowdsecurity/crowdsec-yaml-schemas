@@ -25,17 +25,17 @@ jobs:
       run: |
         sudo apt-get install -y python3-pip
         pip3 install pydantic
-        python -c 'from models.parser import Parser; import json; out_file=open("parser_schema.json","w"); json.dump(Parser.model_json_schema(),out_file)'
+        python -c 'from models.parser import Parser; import json; out_file=open("parser.json","w"); json.dump(Parser.model_json_schema(),out_file)'
     - name: validate parsers against schema
       run: |
         go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
-        for ITEM in ./hub/parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
+        for ITEM in ./hub/parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser.json $ITEM ; done
     - name: validate scenarios against schema
       run: |
         for ITEM in ./hub/scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv scenario_schema.json $ITEM ; done
     - name: validate postoverflows against schema
       run: |
-        for ITEM in ./hub/postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
+        for ITEM in ./hub/postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser.json $ITEM ; done
     - name: validate parsers against schema
       run: |
         for ITEM in ./hub/collections/*/*.json; do echo $ITEM && ~/go/bin/jv collection_schema.json $ITEM ; done
