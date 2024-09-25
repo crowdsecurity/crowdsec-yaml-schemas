@@ -23,7 +23,7 @@ jobs:
         cmd: find . -path ./.tests -prune -o -name "*"yaml -exec sh -c 'yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json' \;
     - name: transform to json schema
       run: |
-        apt-get install -y pip3
+        sudo apt-get install -y pip3
         pip3 install pydantic
         python -c 'from models.parser import Parser; import json; out_file=open("parser_schema.json","w"); json.dump(Parser.model_json_schema(),out_file)'
     - name: validate parsers against schema
