@@ -22,9 +22,8 @@ jobs:
       with:
         cmd: find . -path ./.tests -prune -o -name "*"yaml -exec sh -c 'yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json' \;
     - name: transform to json schema
-      uses: mikefarah/yq@master
-      with:
-        cmd: for i in *.yaml ; do yq  -o=json $i > $(basename $i .yaml).json ; done
+      run: |
+        python -c 'from models.parser import Parser; import json; out_file=open("parser_schema.json","w"); json.dump(Parser.model_json_schema(),out_file)'
     - name: validate parsers against schema
       run: |
         go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
