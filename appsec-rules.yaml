@@ -119,6 +119,7 @@ properties:
         items:
           type: string
           pattern: ^(cve\.CVE-\d{4}-\d{4,7}|attack\.[A-Z0-9]+|cwe\.CWE-\d+)$
+    additionalProperties: true
   debug:
     type: boolean
     description: Enable debug logging
