@@ -1,0 +1,141 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: https://raw.githubusercontent.com/crowdsecurity/hub/master/.github/schemas/appsec-rules.yaml
+title: AppSec Rules Schema
+description: Schema for CrowdSec AppSec rules
+type: object
+properties:
+  name:
+    type: string
+    description: Name of the rule
+  description:
+    type: string
+    description: Description of what the rule does
+  seclang_rules:
+    type: array
+    description: Array of Coraza WAF configuration rules
+    items:
+      type: string
+  seclang_files_rules:
+    type: array
+    description: Array of Coraza WAF file rules
+    items:
+      type: object
+      properties:
+        source_url:
+          type: string
+          description: URL to download the rule file
+        dest_file:
+          type: string
+          description: Destination filename for the rule
+  rules:
+    type: array
+    description: Array of rule definitions
+    items:
+      type: object
+      properties:
+        and:
+          type: array
+          description: All conditions must be true
+          items:
+            type: object
+            properties:
+              zones:
+                type: array
+                description: Areas to check
+                items:
+                  type: string
+                  enum: [
+                    METHOD, URI, URI_FULL, HEADERS, HEADERS_NAMES, 
+                    ARGS, ARGS_NAMES, BODY_ARGS, BODY_ARGS_NAMES, 
+                    RAW_BODY, COOKIES, COOKIES_NAMES, FILES, 
+                    FILES_NAMES, FILES_TOTAL_SIZE, PROTOCOL, FILENAMES
+                  ]
+              match:
+                type: object
+                description: Matching criteria
+                properties:
+                  type:
+                    type: string
+                    enum: [
+                      contains, equals, regex, startsWith, endsWith, 
+                      gte, libinjectionSQL, libinjectionXSS, modsec,
+                      gt, lt, lte, eq
+                    ]
+                  value:
+                    type: string
+                    description: Value to match against
+                  not:
+                    type: boolean
+                    description: Whether to negate the match
+                  transform:
+                    type: array
+                    description: Transformations to apply before matching
+                    items:
+                      type: string
+                      enum: [
+                        lowercase, uppercase, urldecode, b64decode,
+                        length, trim, normalize_path, normalizepath,
+                        htmlentitydecode, html_entity_decode
+                      ]
+              variables:
+                type: array
+                description: Variables to check
+                items:
+                  type: string
+              bodyType:
+                type: string
+                description: Type of request body
+                enum: [json, xml, multipart, urlencoded]
+        or:
+          type: array
+          description: At least one condition must be true
+          items:
+            $ref: "#/properties/rules/items/properties/and"
+  labels:
+    type: object
+    description: Labels and metadata for the rule
+    properties:
+      type:
+        type: string
+        description: Type of the rule
+      service:
+        type: string
+        description: Service type (e.g., http)
+      confidence:
+        type: integer
+        description: Confidence level of the rule
+        minimum: 0
+        maximum: 3
+      spoofable:
+        type: integer
+        description: Whether the rule can be spoofed (0 or 1)
+        minimum: 0
+        maximum: 1
+      behavior:
+        type: string
+        description: Type of behavior being detected
+        enum: [http:exploit, http:scan]
+      label:
+        type: string
+        description: Human readable label for the rule
+      references:
+        type: array
+        description: References to documentation or advisories
+        items:
+          type: string
+      classification:
+        type: array
+        description: Classification of the vulnerability
+        items:
+          type: string
+          pattern: ^(cve\.CVE-\d{4}-\d{4,7}|attack\.[A-Z0-9]+|cwe\.CWE-\d+)$
+  debug:
+    type: boolean
+    description: Enable debug logging
+  format:
+    type: number
+    description: Version of the rule configuration file
+required:
+  - name
+  - description
+  - rules 
