@@ -19,14 +19,8 @@ properties:
     type: array
     description: Array of Coraza WAF file rules
     items:
-      type: object
-      properties:
-        source_url:
-          type: string
-          description: URL to download the rule file
-        dest_file:
-          type: string
-          description: Destination filename for the rule
+      type: string
+      description: Full path to the file containing the rules
   rules:
     type: array
     description: Array of rule definitions
@@ -114,10 +108,6 @@ properties:
       behavior:
         type: string
         description: Type of behavior being detected
-        enum: [http:exploit, http:scan]
-      label:
-        type: string
-        description: Human readable label for the rule
       references:
         type: array
         description: References to documentation or advisories
