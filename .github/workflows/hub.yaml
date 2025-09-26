@@ -40,4 +40,4 @@ jobs:
           for ITEM in ./hub/collections/*/*.json; do echo $ITEM && ~/go/bin/jv collection_schema.json $ITEM ; done
       - name: validate parsers against schema
         run: |
-          for ITEM in ./hub/appsec-rules/*/*.json; do echo $ITEM && ~/go/bin/jv collection_schema.json $ITEM ; done
+          for ITEM in ./hub/appsec-rules/*/*.json; do echo $ITEM && ~/go/bin/jv appsec_rules_schema.json $ITEM ; done
