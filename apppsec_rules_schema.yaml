@@ -1,0 +1,252 @@
+$schema: "https://json-schema.org/draft-04/schema"
+$id: "http://schemas.crowdsec.net/schemas/appsec-rule.yaml"
+title: "CrowdSec AppSec Rule"
+
+##
+# Top‑level definition for a CrowdSec AppSec rule.
+#
+# AppSec rules are used by the CrowdSec WAF to detect and stop
+# malicious HTTP requests. A rule file defines a human readable
+# `name` and `description`, one or more `rules` describing the
+# matching conditions and an optional `labels` section to
+# categorise the rule in the CrowdSec ecosystem. For legacy
+# ModSecurity/Seclang rules the `seclang_rules` and
+# `seclang_files_rules` keys can also be provided.
+#
+# This schema captures the structure described in the official
+# AppSec rules syntax documentation【823247631827331†L88-L116】,
+# including support for nested logical operators (`and`/`or`) and
+# the available matching zones, transformations and match types.
+type: object
+additionalProperties: false
+properties:
+  name:
+    type: string
+    description: |
+      Unique identifier for the AppSec rule.  Names follow the
+      `author/name` convention (e.g. `crowdsecurity/vpatch-CVE-2024-0001`).
+  description:
+    type: string
+    description: |
+      Free‑form description of what the rule detects.  This text
+      appears in the Hub and the CrowdSec console.
+  format:
+    type: number
+    description: |
+      Optional format version.  If specified, it MUST be a
+      positive number.  This allows CrowdSec to ensure that the
+      running version understands all features used by the rule.
+    minimum: 1.0
+  rules:
+    type: array
+    description: |
+      A non‑empty list of conditions and/or logical groups that
+      define when the rule is triggered.  Each item in the list
+      can either be a leaf (matching a specific request part) or a
+      composite rule using `and` or `or` to combine other
+      conditions.  When multiple top‑level
+      items are present they are evaluated in order and each
+      matching item will trigger the rule independently.
+    minItems: 1
+    items:
+      $ref: "#/$defs/ruleItem"
+  labels:
+    $ref: "#/$defs/labels"
+  seclang_rules:
+    type: array
+    description: |
+      Inline ModSecurity/Seclang rules to be loaded by the AppSec
+      engine.  These are interpreted by the Coraza runtime.
+    items:
+      type: string
+  seclang_files_rules:
+    type: array
+    description: |
+      A list of file names containing ModSecurity/Seclang rules.  The
+      referenced files must live in the CrowdSec data directory
+      (e.g. `/var/lib/crowdsec/data`).  Each entry SHOULD be a
+      relative file name without path traversal.
+    items:
+      type: string
+required:
+  - name
+  - rules
+
+##
+# Definitions
+$defs:
+  labels:
+    type: object
+    description: |
+      A map of labels applied to the rule.  Labels are free‑form
+      key/value pairs used by the Hub and console to categorise
+      rules.  The following keys are commonly used:
+
+        * `type` — high level category (e.g. `exploit`)
+        * `service` — service targeted by the rule (e.g. `http`)
+        * `behavior` — behaviour tag used by the remediation engine (e.g. `http:exploit`)
+        * `confidence` — integer from 1 to 5 describing how confident we are in the detection
+        * `spoofable` — integer (`0` or `1`) indicating if the detection can be spoofed
+        * `label` — human readable summary of the rule
+        * `classification` — list of reference identifiers (e.g. CVE or ATT&CK IDs)
+
+      Additional keys MAY be present and MUST have string, number or
+      boolean values.  The schema only constrains known keys and
+      leaves room for extensibility.
+    additionalProperties:
+      anyOf:
+        - type: string
+        - type: number
+        - type: boolean
+    properties:
+      type:
+        type: string
+      service:
+        type: string
+      behavior:
+        type: string
+      confidence:
+        type: integer
+        minimum: 0
+      spoofable:
+        type: integer
+        minimum: 0
+      label:
+        type: string
+      classification:
+        type: array
+        items:
+          type: string
+    # no required fields at this level
+
+  # A ruleItem can either be a leaf rule (matching on request
+  # content) or a composite rule that groups other ruleItems with a
+  # logical operator.
+  ruleItem:
+    type: object
+    additionalProperties: false
+    oneOf:
+      - $ref: "#/$defs/compositeRule"
+      - $ref: "#/$defs/leafRule"
+
+  compositeRule:
+    type: object
+    additionalProperties: false
+    description: |
+      A composite rule groups several sub‑rules together using
+      either `and` or `or`.  Only one of these keys MUST be
+      present.  The evaluation semantics follow boolean logic:
+      * `and`: all sub‑rules MUST match for the composite rule to
+      trigger.
+      * `or`: any sub‑rule matching triggers the composite rule.
+    properties:
+      and:
+        type: array
+        minItems: 1
+        items:
+          $ref: "#/$defs/ruleItem"
+      or:
+        type: array
+        minItems: 1
+        items:
+          $ref: "#/$defs/ruleItem"
+    oneOf:
+      - required: [and]
+      - required: [or]
+
+  leafRule:
+    type: object
+    additionalProperties: false
+    description: |
+      A leaf rule describes a single condition evaluated against
+      specific parts of the HTTP request.  It MUST provide at
+      least one zone via the `zones` list and a `match` object
+      describing the comparison to perform.
+    properties:
+      zones:
+        type: array
+        description: |
+          List of zones specifying which parts of the HTTP request
+          to inspect.  At least one entry MUST be provided.  See
+          【823247631827331†L125-L137】 for the meaning of each zone.
+        minItems: 1
+        items:
+          type: string
+          enum:
+            - ARGS
+            - ARGS_NAMES
+            - BODY_ARGS
+            - BODY_ARGS_NAMES
+            - HEADERS
+            - HEADERS_NAMES
+            - METHOD
+            - PROTOCOL
+            - URI
+            - URI_FULL
+            - RAW_BODY
+            - FILENAMES
+      variables:
+        type: array
+        description: |
+          Restricts the match to specific variable names within the
+          selected zones.  Only relevant when zones include
+          `ARGS`, `BODY_ARGS` or `HEADERS`.  Each entry MUST be
+          a non‑empty string.
+        items:
+          type: string
+      transform:
+        type: array
+        description: |
+          List of transformations applied sequentially on the
+          target before performing the match.  Transformations
+          adjust casing, decode content, compute length, etc【823247631827331†L185-L195】.
+        items:
+          type: string
+          enum:
+            - lowercase
+            - uppercase
+            - b64decode
+            - length
+            - urldecode
+            - trim
+            - normalizepath
+            - htmlEntitydecode
+      match:
+        $ref: "#/$defs/match"
+    required:
+      - zones
+      - match
+
+  match:
+    type: object
+    additionalProperties: false
+    description: |
+      Specifies how to compare the extracted target against a
+      constant value.  Both `type` and `value` are required.
+    properties:
+      type:
+        type: string
+        description: |
+          Method used to compare the target to the value.  See
+          for the list of valid options.
+        enum:
+          - regex
+          - equals
+          - startsWith
+          - endsWith
+          - contains
+          - libinjectionSQL
+          - libinjectionXSS
+          - gt
+          - lt
+          - gte
+          - lte
+      value:
+        type: string
+        description: |
+          The constant value to compare the target against.  Its
+          meaning depends on the selected `type` (e.g. a RE2
+          regular expression for `regex`)
+    required:
+      - type
+      - value
