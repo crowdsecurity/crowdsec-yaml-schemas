@@ -1,40 +1,43 @@
 name: check hub
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
     branches:
       - main
 
-jobs: 
+jobs:
   yaml-schema-validation:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout repo
-      uses: actions/checkout@v3
-    - name: checkout hub
-      uses: actions/checkout@v3
-      with:
-        repository: 'crowdsecurity/hub'
-        path: hub
-    - name: transform to json all parsers/scenarios/collections/postovfw
-      uses: mikefarah/yq@master
-      with:
-        cmd: find . -path ./.tests -prune -o -name "*"yaml -exec sh -c 'yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json' \;
-    - name: transform to json schema
-      uses: mikefarah/yq@master
-      with:
-        cmd: for i in *.yaml ; do yq  -o=json $i > $(basename $i .yaml).json ; done
-    - name: validate parsers against schema
-      run: |
-        go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
-        for ITEM in ./hub/parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
-    - name: validate scenarios against schema
-      run: |
-        for ITEM in ./hub/scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv scenario_schema.json $ITEM ; done
-    - name: validate postoverflows against schema
-      run: |
-        for ITEM in ./hub/postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
-    - name: validate parsers against schema
-      run: |
-        for ITEM in ./hub/collections/*/*.json; do echo $ITEM && ~/go/bin/jv collection_schema.json $ITEM ; done
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: checkout hub
+        uses: actions/checkout@v3
+        with:
+          repository: "crowdsecurity/hub"
+          path: hub
+      - name: transform to json all parsers/scenarios/collections/postovfw
+        uses: mikefarah/yq@master
+        with:
+          cmd: find . -path ./.tests -prune -o -name "*"yaml -exec sh -c 'yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json' \;
+      - name: transform to json schema
+        uses: mikefarah/yq@master
+        with:
+          cmd: for i in *.yaml ; do yq  -o=json $i > $(basename $i .yaml).json ; done
+      - name: validate parsers against schema
+        run: |
+          go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
+          for ITEM in ./hub/parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
+      - name: validate scenarios against schema
+        run: |
+          for ITEM in ./hub/scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv scenario_schema.json $ITEM ; done
+      - name: validate postoverflows against schema
+        run: |
+          for ITEM in ./hub/postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
+      - name: validate parsers against schema
+        run: |
+          for ITEM in ./hub/collections/*/*.json; do echo $ITEM && ~/go/bin/jv collection_schema.json $ITEM ; done
+      - name: validate parsers against schema
+        run: |
+          for ITEM in ./hub/appsec-rules/*/*.json; do echo $ITEM && ~/go/bin/jv collection_schema.json $ITEM ; done
