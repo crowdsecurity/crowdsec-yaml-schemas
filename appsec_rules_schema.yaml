@@ -278,7 +278,6 @@ $defs:
 
   match:
     type: object
-    additionalProperties: false
     description: |
       Specifies how to compare the extracted target against a
       constant value.  Both `type` and `value` are required.
@@ -291,6 +290,7 @@ $defs:
               - libinjectionXSS
         required:
           - type
+        additionalProperties: false
       - properties:
           type:
             type: string
@@ -308,12 +308,13 @@ $defs:
               - lt
               - gte
               - lte
-          value:
-            type: string
-            description: |
-              The constant value to compare the target against.  Its
-              meaning depends on the selected `type` (e.g. a RE2
-              regular expression for `regex`).
+            value:
+              type: string
+              description: |
+                The constant value to compare the target against.  Its
+                meaning depends on the selected `type` (e.g. a RE2
+                regular expression for `regex`).
         required:
           - type
           - value
+        additionalProperties: false
