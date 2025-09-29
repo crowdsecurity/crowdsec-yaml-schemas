@@ -2,21 +2,15 @@ $schema: "https://json-schema.org/draft-04/schema"
 $id: "http://schemas.crowdsec.net/schemas/appsec-rule.yaml"
 title: "CrowdSec AppSec Rule"
 
-##
-# Top‑level definition for a CrowdSec AppSec rule.
+# Top-level definition for a CrowdSec AppSec rule.
 #
-# AppSec rules are used by the CrowdSec WAF to detect and stop
-# malicious HTTP requests. A rule file defines a human readable
-# `name` and `description`, one or more `rules` describing the
-# matching conditions and an optional `labels` section to
-# categorise the rule in the CrowdSec ecosystem. For legacy
-# ModSecurity/Seclang rules the `seclang_rules` and
-# `seclang_files_rules` keys can also be provided.
-#
-# This schema captures the structure described in the official
-# AppSec rules syntax documentation【823247631827331†L88-L116】,
-# including support for nested logical operators (`and`/`or`) and
-# the available matching zones, transformations and match types.
+# This schema is derived from the official CrowdSec AppSec rule
+# specification.  It describes the structure of an application
+# security rule used by the CrowdSec WAF.  A rule defines a
+# human‑readable `name` and `description`, one or more `rules`
+# describing matching conditions, and optional `labels`.  For
+# compatibility with ModSecurity/Seclang rules, `seclang_rules`
+# and `seclang_files_rules` may also be provided.
 type: object
 additionalProperties: false
 properties:
@@ -44,9 +38,9 @@ properties:
       define when the rule is triggered.  Each item in the list
       can either be a leaf (matching a specific request part) or a
       composite rule using `and` or `or` to combine other
-      conditions.  When multiple top‑level
-      items are present they are evaluated in order and each
-      matching item will trigger the rule independently.
+      conditions.  When multiple top‑level items are present they
+      are evaluated in order and each matching item will trigger
+      the rule independently.
     minItems: 1
     items:
       $ref: "#/$defs/ruleItem"
@@ -72,8 +66,6 @@ required:
   - name
   - rules
 
-##
-# Definitions
 $defs:
   labels:
     type: object
@@ -117,14 +109,15 @@ $defs:
         type: array
         items:
           type: string
-    # no required fields at this level
 
   # A ruleItem can either be a leaf rule (matching on request
   # content) or a composite rule that groups other ruleItems with a
-  # logical operator.
+  # logical operator.  Note: unlike the original schema, this version
+  # omits `additionalProperties: false` at this level.  Without it,
+  # the validator will correctly allow either the `and`/`or` keys of
+  # a composite rule or the `zones`/`match` keys of a leaf rule.
   ruleItem:
     type: object
-    additionalProperties: false
     oneOf:
       - $ref: "#/$defs/compositeRule"
       - $ref: "#/$defs/leafRule"
@@ -167,8 +160,7 @@ $defs:
         type: array
         description: |
           List of zones specifying which parts of the HTTP request
-          to inspect.  At least one entry MUST be provided.  See
-          【823247631827331†L125-L137】 for the meaning of each zone.
+          to inspect.
         minItems: 1
         items:
           type: string
@@ -198,8 +190,7 @@ $defs:
         type: array
         description: |
           List of transformations applied sequentially on the
-          target before performing the match.  Transformations
-          adjust casing, decode content, compute length, etc【823247631827331†L185-L195】.
+          target before performing the match.
         items:
           type: string
           enum:
@@ -227,8 +218,7 @@ $defs:
       type:
         type: string
         description: |
-          Method used to compare the target to the value.  See
-          for the list of valid options.
+          Method used to compare the target to the value.
         enum:
           - regex
           - equals
@@ -246,7 +236,7 @@ $defs:
         description: |
           The constant value to compare the target against.  Its
           meaning depends on the selected `type` (e.g. a RE2
-          regular expression for `regex`)
+          regular expression for `regex`).
     required:
       - type
       - value
