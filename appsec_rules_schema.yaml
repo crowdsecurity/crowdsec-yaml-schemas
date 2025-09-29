@@ -257,6 +257,12 @@ $defs:
             - normalizepath
             - htmlEntitydecode
             - count
+      name:
+        type: string
+        description: |
+          A single variable name to restrict the match.  This is a
+          convenience shorthand equivalent to specifying `variables` with a
+          one‑element array.
       match:
         $ref: "#/$defs/match"
     required:
