@@ -146,7 +146,7 @@ $defs:
         type: array
         items:
           type: string
-      reference:
+      references:
         description: |
           A reference to external resources, such as CVE identifiers, blog posts
           or other documentation.  The value can be either a single string or
