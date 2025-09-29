@@ -156,13 +156,13 @@ $defs:
           - type: array
             items:
               type: string
-      required:
-        - type
-        - service
-        - behavior
-        - confidence
-        - spoofable
-        - classification
+    required:
+      - type
+      - service
+      - behavior
+      - confidence
+      - spoofable
+      - classification
 
   # A ruleItem can either be a leaf rule (matching on request
   # content) or a composite rule that groups other ruleItems with a
