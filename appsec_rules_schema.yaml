@@ -62,6 +62,41 @@ properties:
       relative file name without path traversal.
     items:
       type: string
+  data:
+    type: array
+    description: |
+      External data files required by the rule.  When installing a rule from
+      the hub, `cscli` will fetch each `source_url` and store it at
+      `dest_file`.  The optional `type` controls how the contents are
+      parsed in memory.
+    items:
+      type: object
+      additionalProperties: false
+      properties:
+        source_url:
+          type: string
+          format: uri
+          description: |
+            URL where the data file can be downloaded.
+        dest_file:
+          type: string
+          description: |
+            Local filename (within the CrowdSec data directory) where the
+            downloaded file will be stored.
+        type:
+          type: string
+          description: |
+            How to interpret the downloaded file.  `modsec` denotes a
+            ModSecurity rules file.  `regex` means the file contains one
+            RE2 regular expression per line, while `string` means one
+            literal string per line.
+          enum:
+            - modsec
+            - regex
+            - string
+      required:
+        - source_url
+        - dest_file
 required:
   - name
 anyOf:
