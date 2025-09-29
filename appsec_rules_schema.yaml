@@ -323,6 +323,7 @@ $defs:
               - lt
               - gte
               - lte
+              - equals
           value:
             type: number
             description: |
