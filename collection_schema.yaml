@@ -61,7 +61,7 @@ properties:
           description: |
             List of collections to include in the collection.
       - type: "null"
-  context:
+  contexts:
     anyOf:
       - type: array
         items:
