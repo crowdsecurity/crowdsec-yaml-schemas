@@ -275,29 +275,41 @@ $defs:
     description: |
       Specifies how to compare the extracted target against a
       constant value.  Both `type` and `value` are required.
-    properties:
-      type:
-        type: string
-        description: |
-          Method used to compare the target to the value.
-        enum:
-          - regex
-          - equals
-          - startsWith
-          - endsWith
-          - contains
-          - libinjectionSQL
-          - libinjectionXSS
-          - gt
-          - lt
-          - gte
-          - lte
-      value:
-        type: string
-        description: |
-          The constant value to compare the target against.  Its
-          meaning depends on the selected `type` (e.g. a RE2
-          regular expression for `regex`).
+    oneOf:
+      - properties:
+        type:
+          type: string
+          enum:
+            - libinjectionSQL
+            - libinjectionXSS
+        required:
+          - type
+      - properties:
+          type:
+            type: string
+            description: |
+              Method used to compare the target to the value.
+            enum:
+              - regex
+              - equals
+              - startsWith
+              - endsWith
+              - contains
+              - libinjectionSQL
+              - libinjectionXSS
+              - gt
+              - lt
+              - gte
+              - lte
+            value:
+              type: string
+              description: |
+                The constant value to compare the target against.  Its
+                meaning depends on the selected `type` (e.g. a RE2
+                regular expression for `regex`).
+            required:
+              - type
+              - value
     required:
       - type
       - value
