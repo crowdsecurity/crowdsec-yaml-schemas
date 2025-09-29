@@ -310,6 +310,3 @@ $defs:
         required:
           - type
           - value
-    required:
-      - type
-      - value
