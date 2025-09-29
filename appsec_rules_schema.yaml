@@ -239,6 +239,7 @@ $defs:
             - trim
             - normalizepath
             - htmlEntitydecode
+            - count
       match:
         $ref: "#/$defs/match"
     required:
