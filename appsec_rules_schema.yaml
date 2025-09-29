@@ -127,6 +127,10 @@ $defs:
         - type: string
         - type: number
         - type: boolean
+        - type: array
+          items:
+            type: string
+
     properties:
       type:
         type: string
@@ -146,6 +150,7 @@ $defs:
         type: array
         items:
           type: string
+          description: "MITRE/ATT&CK-like tags."
       references:
         description: |
           A reference to external resources, such as CVE identifiers, blog posts
@@ -156,6 +161,8 @@ $defs:
           - type: array
             items:
               type: string
+      additionalProperties:
+        - type: string
     required:
       - type
       - service
