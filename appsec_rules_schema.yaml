@@ -64,8 +64,10 @@ properties:
       type: string
 required:
   - name
-  - rules
-
+anyOf:
+  - required: ["rules"]
+  - required: ["seclang_rules"]
+  - required: ["seclang_files_rules"]
 $defs:
   labels:
     type: object
