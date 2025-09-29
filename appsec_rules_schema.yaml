@@ -277,11 +277,11 @@ $defs:
       constant value.  Both `type` and `value` are required.
     oneOf:
       - properties:
-        type:
-          type: string
-          enum:
-            - libinjectionSQL
-            - libinjectionXSS
+          type:
+            type: string
+            enum:
+              - libinjectionSQL
+              - libinjectionXSS
         required:
           - type
       - properties:
@@ -307,9 +307,9 @@ $defs:
                 The constant value to compare the target against.  Its
                 meaning depends on the selected `type` (e.g. a RE2
                 regular expression for `regex`).
-            required:
-              - type
-              - value
+        required:
+          - type
+          - value
     required:
       - type
       - value
