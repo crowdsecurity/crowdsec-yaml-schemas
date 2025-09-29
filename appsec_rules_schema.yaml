@@ -146,6 +146,23 @@ $defs:
         type: array
         items:
           type: string
+      reference:
+        description: |
+          A reference to external resources, such as CVE identifiers, blog posts
+          or other documentation.  The value can be either a single string or
+          an array of strings.
+        anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      required:
+        - type
+        - service
+        - behavior
+        - confidence
+        - spoofable
+        - classification
 
   # A ruleItem can either be a leaf rule (matching on request
   # content) or a composite rule that groups other ruleItems with a
