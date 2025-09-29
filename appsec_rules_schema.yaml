@@ -162,7 +162,7 @@ $defs:
             items:
               type: string
       additionalProperties:
-        - type: string
+        type: string
     required:
       - type
       - service
