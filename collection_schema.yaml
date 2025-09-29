@@ -47,12 +47,12 @@ properties:
       - type: "null"
   postoverflows:
     anyOf:
-    - type: array
-      items:
-        type: string
-        description: |
-          List of postoverflows to include in the collection.
-    - type: "null"
+      - type: array
+        items:
+          type: string
+          description: |
+            List of postoverflows to include in the collection.
+      - type: "null"
   collections:
     anyOf:
       - type: array
@@ -60,6 +60,14 @@ properties:
           type: string
           description: |
             List of collections to include in the collection.
+      - type: "null"
+  context:
+    anyOf:
+      - type: array
+        items:
+          type: string
+          description: |
+            List of context to include in the collection.
       - type: "null"
   author:
     type: string
