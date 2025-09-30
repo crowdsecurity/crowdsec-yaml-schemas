@@ -311,6 +311,7 @@ $defs:
               - contains
               - libinjectionSQL
               - libinjectionXSS
+              - fromFile
           value:
             type: string
             description: |
