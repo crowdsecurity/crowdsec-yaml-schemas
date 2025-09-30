@@ -229,9 +229,16 @@ $defs:
             - ARGS
             - ARGS_NAMES
             - BODY_ARGS
+            - ARGS_POST,
             - BODY_ARGS_NAMES
-            - HEADERS
+            - COOKIES
+            - COOKIES_NAMES
+            - REQUEST_COOKIES_NAMES
+            - FILES
+            - FILES_NAMES
+            - FILES_TOTAL_SIZE
             - HEADERS_NAMES
+            - HEADERS
             - METHOD
             - PROTOCOL
             - URI
