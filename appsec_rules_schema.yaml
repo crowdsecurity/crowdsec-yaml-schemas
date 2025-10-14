@@ -103,6 +103,11 @@ anyOf:
   - required: ["rules"]
   - required: ["seclang_rules"]
   - required: ["seclang_files_rules"]
+  - not:
+      anyOf:
+        - required: ["rules"]
+        - required: ["seclang_rules"]
+        - required: ["seclang_files_rules"]
 $defs:
   labels:
     type: object
