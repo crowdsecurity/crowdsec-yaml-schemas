@@ -79,3 +79,21 @@ properties:
       type: string
     description: |
       List of tags.
+  labels:
+    $ref: "#/$defs/labels"
+$defs:
+  labels:
+    type: object
+    description: |
+      Labels is a list of label: values that provide context to an
+      overflow. The labels are (currently) not stored in the database,
+      nor they are sent to the API.  Special labels : The remediation
+      label, if set to true indicate the the originating IP should be
+      banned.
+    patternProperties:
+      "^.*$":
+        type:
+          - string
+          - boolean
+          - array
+          - integer
