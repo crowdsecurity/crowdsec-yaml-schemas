@@ -85,11 +85,9 @@ $defs:
   labels:
     type: object
     description: |
-      Labels is a list of label: values that provide context to an
-      overflow. The labels are (currently) not stored in the database,
-      nor they are sent to the API.  Special labels : The remediation
-      label, if set to true indicate the the originating IP should be
-      banned.
+      Labels is a set of key–value pairs that provide contextual information for
+      users. They help users select appropriate collections and allow the hub
+      interface to display clearer descriptions.
     patternProperties:
       "^.*$":
         type:
