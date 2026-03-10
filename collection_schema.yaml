@@ -79,3 +79,19 @@ properties:
       type: string
     description: |
       List of tags.
+  labels:
+    $ref: "#/$defs/labels"
+$defs:
+  labels:
+    type: object
+    description: |
+      Labels is a set of key–value pairs that provide contextual information for
+      users. They help users select appropriate collections and allow the hub
+      interface to display clearer descriptions.
+    patternProperties:
+      "^.*$":
+        type:
+          - string
+          - boolean
+          - array
+          - integer
