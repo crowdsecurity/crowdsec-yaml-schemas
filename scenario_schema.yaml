@@ -575,7 +575,7 @@ $defs:
             destination to store the downloaded file to
         type:
           type: string
-          pattern: "^(string|regexp)$"
+          pattern: "^(string|regexp|map)$"
           additionalProperties: false
           description: |
             The type is mandatory if you want to evaluate the data in
