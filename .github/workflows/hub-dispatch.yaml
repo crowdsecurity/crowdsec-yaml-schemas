@@ -1,0 +1,64 @@
+name: check hub (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      hub_branch:
+        description: "Hub branch to validate against"
+        required: true
+        default: "master"
+
+jobs:
+  hub-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout schema repo
+        uses: actions/checkout@v4
+
+      - name: checkout hub
+        uses: actions/checkout@v4
+        with:
+          repository: "crowdsecurity/hub"
+          ref: ${{ inputs.hub_branch }}
+          path: hub
+
+      - name: transform schemas to json
+        uses: mikefarah/yq@master
+        with:
+          cmd: find . -path ./.tests -prune -o -name "*schema.yaml" -exec sh -c 'yq -o=json {} > $(dirname {})/$(basename {} .yaml).json' \;
+
+      - name: split hub YAML to per-doc JSON
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            set -eu
+            find hub -path hub/.tests -prune -name '*json' -exec rm {} \;
+            for f in $(find hub -path hub/.tests -prune -o -name '*yaml' -print); do
+              base="${f%.yaml}"
+              i=0
+              while : ; do
+                out="${base}.${i}.json"
+                yq -o=json 'select(documentIndex == '"$i"')' "$f" > "$out"
+                if [ ! -s "$out" ]; then rm -f "$out"; break; fi
+                i=$((i+1))
+              done
+              echo "split $f -> ${i} JSON doc(s)"
+            done
+
+      - name: install jv
+        run: go install github.com/santhosh-tekuri/jsonschema/cmd/jv@v0.6.0
+
+      - name: validate parsers
+        run: for ITEM in ./hub/parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM; done
+
+      - name: validate scenarios
+        run: for ITEM in ./hub/scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv scenario_schema.json $ITEM; done
+
+      - name: validate postoverflows
+        run: for ITEM in ./hub/postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM; done
+
+      - name: validate collections
+        run: for ITEM in ./hub/collections/*/*.json; do echo $ITEM && ~/go/bin/jv collection_schema.json $ITEM; done
+
+      - name: validate appsec-rules
+        run: for ITEM in ./hub/appsec-rules/*/*.json; do echo $ITEM && ~/go/bin/jv appsec_rules_schema.json $ITEM; done
