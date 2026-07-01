@@ -88,12 +88,14 @@ properties:
           description: |
             How to interpret the downloaded file.  `modsec` denotes a
             ModSecurity rules file.  `regex` means the file contains one
-            RE2 regular expression per line, while `string` means one
-            literal string per line.
+            RE2 regular expression per line, `string` means one literal
+            string per line, and `bots` denotes a serialized bot
+            definition list consumed by AppSec bot protections.
           enum:
             - modsec
             - regex
             - string
+            - bots
       required:
         - source_url
         - dest_file
