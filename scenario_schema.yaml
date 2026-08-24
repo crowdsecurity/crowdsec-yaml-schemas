@@ -161,10 +161,17 @@ $defs:
       duration:
         type: string
         description: |
-          Only applies to leaky buckets.
-          A duration that represent how often an event will be leaking from the bucket.
+          Only applies to counter buckets.
+          A duration after which the bucket will overflow and reset.
         pattern: >-
           ^([0-9]+(\.[0-9]+)*d)?([0-9]+(\.[0-9]+)*h)?([0-9]+(\.[0-9]+)*m)?([0-9]+(\.[0-9]+)*s)?([0-9]+(\.[0-9]+)*ms)?([0-9]+(\.[0-9]+)*(us|µs))?([0-9]+(\.[0-9]+)*ns)?$
+      capacity:
+        type: integer
+        enum:
+          - -1
+        description: |
+          For counter buckets, capacity must always be set to -1 (unlimited).
+          The bucket overflows based on the duration, not a capacity limit.
       references:
         description: |
           Reference to external paper or documentation
@@ -200,14 +207,19 @@ $defs:
           An expr expression that must return a string. The event will be
           poured only if the string is not already present in the bucket.
       format:
-        description: |  
+        description: |
           CrowdSec has a notion of format support for parsers and
           scenarios for compatibility management. Running cscli version
           will show you such compatibility matrix :
         type: number
-        minimum: 1.0        
+        minimum: 1.0
+      version:
+        type: string
+        description: |
+          Version of the scenario, set automatically by cscli when
+          installed from the hub.
       labels:
-        $ref: "#/$defs/labels" 
+        $ref: "#/$defs/labels"
       blackhole:
         type: string
         description: |
@@ -267,12 +279,13 @@ $defs:
           expression:
             type: string
         additionalProperties: false
-    additionalProperties: false  
+    additionalProperties: false
     required:
       - type
       - name
       - duration
-      - description    
+      - description
+      - capacity
   trigger:
     type: object
     properties:
