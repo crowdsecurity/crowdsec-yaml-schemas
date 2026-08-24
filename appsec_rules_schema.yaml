@@ -7,10 +7,11 @@ title: "CrowdSec AppSec Rule"
 # This schema is derived from the official CrowdSec AppSec rule
 # specification.  It describes the structure of an application
 # security rule used by the CrowdSec WAF.  A rule defines a
-# human‑readable `name` and `description`, one or more `rules`
-# describing matching conditions, and optional `labels`.  For
-# compatibility with ModSecurity/Seclang rules, `seclang_rules`
-# and `seclang_files_rules` may also be provided.
+# human‑readable `name` and optional `description`, `labels`, and
+# external `data`. It may define native `rules`, inline
+# ModSecurity/Seclang `seclang_rules`, file-backed
+# `seclang_files_rules`, or only `data` when the rule exists solely to
+# install external files used by another rule.
 type: object
 additionalProperties: false
 properties:
@@ -105,11 +106,7 @@ anyOf:
   - required: ["rules"]
   - required: ["seclang_rules"]
   - required: ["seclang_files_rules"]
-  - not:
-      anyOf:
-        - required: ["rules"]
-        - required: ["seclang_rules"]
-        - required: ["seclang_files_rules"]
+  - required: ["data"]
 $defs:
   labels:
     type: object
